@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TAIL WIND CSS -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!-- Socket IO JS-->
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+        integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+
+
+    <!-- MY CSS -->
+    <link rel="stylesheet" href="../static/login.css">
+    <link rel="stylesheet" href="../static/style.css">
+
+    {% block head %}{% endblock %}
+    <title>
+        Flack {% block title %}{% endblock %}
+    </title>
+</head>
+
+<body>
+
+    {% if session.username %}
+    <nav class="navbar navbar-expand-lg navbar-light custom-nav" style="height: 50px;">
+        <a class="navbar-brand" style="padding: 5px;" href="/">
+            <img src="../static/img.png" style=" width:5%; height:5%;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a id="nuevocanal" class="nav-link" href="/">Agregar Canales</a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown"  aria-expanded="false">Canales</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for channel in channels %}
+                        <li>
+                        <a class="dropdown-item" href="/channels/{{ channel }}">{{ channel }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color:lightseagreen">{{ session.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a id="salir" class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+        {% else %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center custom-nav">
+            <a class="navbar-brand" href="#">
+                <img src="../static/img.png" width="60" height="60" alt="Flack">
+            </a>
+            {% endif %}
+        </nav>
+</body>
+
+<main class="#">
+    {% block content %} {% endblock %}
+</main>
+
+</html>

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+<!-- Jinja ! HTML main layout-->
+
+{% block title %}
+<!-- Jinja ! Titulo -->
+
+Bad
+
+<!-- Jinja ! Write the title -->
+{% endblock %}
+<!-- Jinja ! Cierre -->
+
+{% block content %}
+<!-- Jinja ! block of content -->
+
+<h1>Oops, {{ message }}</h1>
+<a href="/">
+    <button class="btn btn-primary" type="button">Intentalo de nuevo</button>
+</a>
+
+{% endblock %}
+<!-- Jinja ! Cierre -->

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+<!-- Jinja ! HTML main layout-->
+
+
+{% block title %}
+<!-- Jinja ! Titulo -->
+
+Login Channels
+
+<!-- Jinja ! Write the title -->
+{% endblock %}
+<!-- Jinja ! Cierre -->
+
+{% block content %}
+<!-- Jinja ! block of content -->
+<div class="contenido">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+        <form action="/login" method="POST">
+            <!-- Jinja ! Creamos un form para heredarlo de Python -->
+            <div class="center">
+                <h1>Login Flack</h1>
+                <div class="box">
+                    <label class="lab">Username</label>
+                </div>
+                <input type="text" id="username" name="username" autofocus aria-describedby="userHelp">
+                <button type="submit">Press me</button>
+            </div>
+        </form>
+        <!-- Cierre del Form -->
+    </div>
+</div>
+
+{% endblock %}
+<!-- Jinja ! Cierre -->
