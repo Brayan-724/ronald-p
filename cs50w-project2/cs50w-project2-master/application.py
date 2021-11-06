@@ -1,7 +1,7 @@
 import os
 
 
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, session, request, redirect, jsonify
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from collections import deque
 from helpers import login_demanding
@@ -27,8 +27,6 @@ channelsmsg = dict()
 def index():
     return render_template("index.html", channels=channelsnew)
 
-    
-
 @app.route("/login", methods=['GET','POST'])
 def login():
 
@@ -44,8 +42,7 @@ def login():
             return render_template("bad.html", message="El nombre de usuario no puede estar vacía")
 
         if username in peoplelog:
-            return render_template("bad.html", message="El usuario ya exite")                   
-        
+            return render_template("bad.html", message="El usuario ya exite")
         peoplelog.append(username)
 
         session['username'] = username
@@ -57,7 +54,14 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/getchannel")
+@app.route("/getchannel/<channel>", methods=['GET'])
+def get_channel(channel):
+    exists = channel in channelsnew
+    status_ = 200 if exists else 404
+    return app.response_class(
+        response="",
+        status=status_
+    )
 
 @app.route("/logout", methods=['GET'])
 def logout():
@@ -94,11 +98,6 @@ def enter_channel(channel):
         return redirect("/")
     else:
         return render_template("canal.html", channels= channelsnew, messages=channelsmsg[channel])
-
-
-
-
-
 
 @socketio.on("afiliado", namespace='/')
 def afiliado():
